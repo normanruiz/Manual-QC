@@ -1,0 +1,358 @@
+% Declaracion del tipo de documento y parametros basicos de la hoja
+\documentclass[12pt,a4paper,twoside]{article}
+
+% Package: inputenc - Este paquete permite al usuario especificar una codificación de entrada
+\usepackage[utf8]{inputenc}
+
+% Package: Babel - Este paquete administra reglas tipográficas (y otras) determinadas culturalmente para una amplia gama de idiomas.
+%\usepackage[spanish]{babel}
+
+%
+\usepackage[T1]{fontenc}
+
+% Packages: amsmath - Se adapta para su uso en LaTeX la mayoría de las características matemáticas que se encuentran en AMS-TeX; Es altamente recomendado como complemento de la composición matemática seria en LaTeX.
+\usepackage{amsmath}
+
+%Package: enumerate - Este paquete le da al entorno de enumeración un argumento opcional lo que determina el estilo en el que se imprime el contador.
+\usepackage{enumerate}
+
+%Package: tabto - Se definen dos nuevos comandos de posicionamiento de texto: \tab y \tabto
+\usepackage{tabto}
+
+%
+\usepackage{amsfonts}
+
+%
+\usepackage{amssymb}
+
+% Este paquete permite la insercion de imagenes en el documento, con esta linea habilito la insercion de archivos .eps
+\usepackage[dvips]{graphicx}
+
+% 
+\usepackage{lettrine}
+
+%
+\usepackage{lmodern}
+
+% Establece los margenes de la hoja
+\usepackage[left=2cm,right=2cm,top=3cm,bottom=3cm]{geometry}
+
+% 
+\usepackage{pstricks,pst-node}
+
+%
+\usepackage{textcomp}
+
+% Con esta linea se declara el autor del documento
+\author{Norman Ruiz}
+
+% Con esta linea se declara el titulo del documento
+\title{Manual\linebreak \linebreak Training de Analista QC}
+
+%
+\usepackage[light]{draftcopy}
+%
+\draftcopyName{Norman Ruiz}{130}
+%
+\draftcopyFirstPage{2}
+
+\usepackage{fancyhdr}
+\lfoot[\today]{\today}
+\cfoot[\thepage]{\thepage}
+\rfoot[Norman Ruiz]{Norman Ruiz}
+\renewcommand{\footrulewidth}{.5pt}
+\lhead[]{}
+\chead[]{}
+\rhead[]{Manual Training de Analista QC}
+\renewcommand{\headrulewidth}{.5pt}
+\pagestyle{fancy}
+
+
+\begin{document}
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{Introduccion}
+
+..."el testing puede probar la presencia de errores, pero no la ausencia de ellos"... \linebreak
+\lettrine{\textit{L}}{}a idea de escribir este pequeño manual es dar una introduccion al puesto de Analista QC a las personas que se inician en este puesto y no tienen experiencia previa.
+Abordaremos temas como la definicion de testing de software, hasta creacion de casos de pruebas, incluyendo fundamentos y tecnicas. 
+Incluiremos material como ejemplos de casos de prueba para lograr una rapida insercion en sus tarea y sentar las bases para que sea capas de redactar su propia documentacion eficasmente.
+\newpage
+
+\section{Testing de software}
+
+\subsection{Roles en el el desarrollo de software}
+
+\hspace*{1cm}El desarrollo de software es una tarea que se lleva acabo en equipo. Un equipo puede estar formado por dos mas personas que pueden desempeñar uno o mas roles, cada rol realiza funciones especificas para lograr el objetivo comun. El siguiente es un ejemplo de un equipo bastante simple:
+\begin{list}{•}{}
+\item \textbf{Proyect Manager}: Coordina el equipo y asegura que todos los demas roles cumplan con su trabajo.
+Este debe tener una vision y mision bien clara del proyecto para lograr el exito final.
+\item \textbf{Analista funcional}: Es el que se encarga de interactuar con el cliente para definir y redactar la documentacion con las caracteristicas del software a desarrollar.
+\item \textbf{Diseñador}: es quien toma la documentacion del Analista funcional y genera el diseño y prototipo del software a desarrollar.
+\item \textbf{Desarrollador}: El desarrollador toma la documentacion del Analista funcional
+y el diseño y prototipo del Diseñador y escribe el codigo correspondiente en un lenguaje definido para obtener finalmente el software solicitado.
+\item \textbf{Analista QC}: Es quien asegura la calidad de producto contrastando los requerimientos del cliente atraves de la documentacion del Analista Funcional y el diseño y prototipo del Diseñador.
+\end{list}
+\vspace*{\fill}
+\begin{center}
+\begin{pspicture}(12,12)
+\psset{radius=1.3cm}
+\rput(6,11){\Circlenode{1}{Proyecto}}
+\rput(6,6){\Circlenode{2}{Equipo}}
+\rput(9,8){\Circlenode[radius=1.7cm]{3}{Proyect Manager}}
+\rput(10,4){\Circlenode[radius=1.8cm]{4}{Analista Funcional}}
+\rput(6,2){\Circlenode{5}{Disenador}}
+\rput(2,4){\Circlenode{6}{Desarrollador}}
+\rput(3,8){\Circlenode{7}{Analista QC}}
+\ncline{->}{1}{2}
+\ncline{->}{2}{3}
+\ncline{->}{2}{4}
+\ncline{->}{2}{5}
+\ncline{->}{2}{6}
+\ncline{->}{2}{7}
+\end{pspicture}
+\end{center}
+\begin{center}
+Roles en el el desarrollo de software
+\end{center}
+\vspace*{\fill}
+
+\subsection{Que es testing}
+
+\hspace*{1cm}Es el proceso empleado para identificar la correctitud, completitud, seguridad y calidad en el desarrollo de software.
+
+\subsection{Cual es el objetivo del testing}
+
+\hspace*{1cm}El proceso de testeo es una investigación técnica que intenta revelar información de calidad, posibles fallos y/o usabilidad acerca del software con respecto al contexto en donde operará.
+
+\subsection{Y cual es su importancia}
+
+\hspace*{1cm}El testo de un producto de software es uno de los pasos más complejos e importantes en el desarrollo de software. Esto incluye el proceso de encontrar errores en el software; pero el testeo no sólo se limita a eso. El testeo o prueba de un software se relaciona a atributos como la fiabilidad, eficiencia, portabilidad, escalabilidad, mantenibilidad, compatibilidad, usabilidad y capacidad del mismo.
+
+\newpage
+ 
+\section{Fundamentos del Testing}
+
+\lettrine{\textit{E}}{}n esta seccion introduciremos conceptos basicos que le permitiran expresarse, redactar documentacion o simplemente escribir un mail usando los terminos correctos.
+Esto ademas le permite situarse correctamente en el proceso y comunicar con mayor esactitud el estado del mismo.
+
+\subsection{Concepto: Error, Defecto y fallo}
+
+\begin{list}{•}{}
+\item \textbf{Error}: Un error es una accion humana o una idea equivocada que produce un resultado incorrecto. Los errores generan defectos.
+\item \textbf{Defecto}: El defecto es una imperfeccion que puede generar que uno o mas componentes no den los resultados esperados o trabajen de la manera correcta.
+\item \textbf{Fallo}: Un fallo es un resultado incorrecto o no esperdo devuelto por un sistema defectuoso. El fallo tambien puede ser producido por una anomalia en el hambiente, como puede ser un afalla de escritura en disco.
+\end{list}
+\vspace*{\fill}
+\begin{center}
+\begin{pspicture}(12,12)
+\psset{cornersize=absolute,linearc=0.15}
+\psset{radius=1.3cm}
+\rput(2,10){\Circlenode{1}{Error}}
+\rput(9,10){\rnode{2}{\psframebox[framesep=10pt]{Se uso A > B en lugar de A >= B}}}
+\rput(2,6){\Circlenode{3}{Defecto}}
+\rput(9,6){\rnode{4}{\psframebox[framesep=10pt]{No verifica Una igualdad entre los terminos}}}
+\rput(2,2){\Circlenode{5}{Fallo}}
+\rput(9,2){\rnode{6}{\psframebox[framesep=10pt]{Cuando A = A no devolvera resultados}}}
+\ncline{->}{1}{2}
+\ncline{->}{1}{3}
+\ncline{->}{3}{4}
+\ncline{->}{3}{5}
+\ncline{->}{5}{6}
+\end{pspicture}
+\end{center}
+\begin{center}
+Error, defecto y Fallo
+\end{center}
+\vspace*{\fill}
+ 
+\subsection{Mas conceptos: Requisito y Calidad}
+
+\begin{list}{•}{}
+\item \textbf{Requisito}: Es un atributo funcional definido por el cliente para el desarrollo solicitado. El conjunto de requisitos conforman la ERS o Especificacion de requisitos de Software.
+\item \textbf{Calidad}: El el nivel de satisfaccion del desarrollo con respecto al requerimiento del cliente. La calidad del software hace mencion al nivel de satisfaccion de la suma de todos los requerimientos respecto a las expectativas del cliente del software solicitado.
+\end{list}
+
+\subsection{Atributos de la Calidad}
+La calidad esta determina por el cumplimento de atributos los cuales podemoc clasificar en Funcionales y No Funcionales.
+\begin{list}{•}{}
+\item \textbf{Atributos funcionales}: Son aquellos atributos que podria decirse nacen de los requerimientos y son determinantes en la calidad del software .
+\begin{list}{•}{}
+\item \textbf{Correctitud}: Este atributo determina que la funcionalidad satisface el requisitos solicitado.
+\item \textbf{Completitud}: Este atributo determina que el software satisface todos los requisitos solicitados por el cliente.
+\end{list}
+\item \textbf{Atributos no funcionales}: Son atributos de linemientos generales y su cumplimiento en mayor o menor medida dependen de ciertos factores que conforman el software, como por ejemplo el tipo de proyecto, el entoro donde va a correr, etc. Para los inquietos, este punto es el de partida para investigar tecnologias como UX.
+\begin{list}{•}{}
+\item \textbf{Fiabilidad}: La fiabilidad es determinada por la estabilidad y operatividad del software e un lapso de tiempo determinado.
+\item \textbf{Usabilidad}: La usabilidad es determinada por la practicidad de opercion y  lo intuitivo y facil de aprender. 
+\item \textbf{Portabilidad}: La portabilidad refiere a la facilidad de instalacion y desisntalacion, configuracion y/o parametrizacion y a la simplisidad de poder reubicar el software por ejemplo entre servidores.
+\item \textbf{Eficiencia}: La eficiencia es determinada por el rendimento y los recurso utilizados en la opercion.
+\item \textbf{Mantenibilidad}: Es determinada por el mayor o menor grado de esfuerso para realizar cambios, actualizaciones, mejoras y/o correcciones en el software.
+\end{list}
+\end{list}
+\vspace*{\fill}
+\begin{center}
+\begin{pspicture}(12,14)
+\psset{cornersize=absolute,linearc=0.15}
+\psset{radius=1.3cm}
+\rput(6,12){\Circlenode{1}{Calidad}}
+\rput(2,10){\Circlenode{2}{Atributos}}
+\rput(4,7.5){\rnode{3}{\psframebox[framesep=7pt]{Funcionales}}}
+\rput(4,3){\rnode{4}{\psframebox[framesep=7pt]{No Funcionales}}}
+\rput(9,8){\rnode{5}{\psframebox[framesep=7pt]{Correctitud}}}
+\rput(9,7){\rnode{6}{\psframebox[framesep=7pt]{ComPletitud}}}
+\rput(9,5){\rnode{7}{\psframebox[framesep=7pt]{Fiabilidad}}}
+\rput(9,4){\rnode{8}{\psframebox[framesep=7pt]{Usabilidad}}}
+\rput(9,3){\rnode{9}{\psframebox[framesep=7pt]{Portabilidad}}}
+\rput(9,2){\rnode{10}{\psframebox[framesep=7pt]{Eficiencia}}}
+\rput(9,1){\rnode{11}{\psframebox[framesep=7pt]{Mantenibilidad}}}
+\ncdiag[linewidth=1pt,angleA=180,angleB=0,linearc=2mm]{->}{1}{2}
+\ncdiag[linewidth=1pt,angleA=-90,angleB=180,linearc=2mm]{->}{2}{3}
+\ncdiag[linewidth=1pt,angleA=0,angleB=180,linearc=2mm]{->}{3}{5}
+\ncdiag[linewidth=1pt,angleA=0,angleB=180,linearc=2mm]{->}{3}{6}
+\ncdiag[linewidth=1pt,angleA=-90,angleB=180,linearc=2mm]{->}{2}{4}
+\ncdiag[linewidth=1pt,angleA=0,angleB=180,linearc=2mm]{->}{4}{7}
+\ncdiag[linewidth=1pt,angleA=0,angleB=180,linearc=2mm]{->}{4}{8}
+\ncdiag[linewidth=1pt,angleA=0,angleB=180,linearc=2mm]{->}{4}{9}
+\ncdiag[linewidth=1pt,angleA=0,angleB=180,linearc=2mm]{->}{4}{10}
+\ncdiag[linewidth=1pt,angleA=0,angleB=180,linearc=2mm]{->}{4}{11}
+\end{pspicture}
+\end{center}
+\begin{center}
+Atributos de la Calidad
+\end{center}
+\vspace*{\fill}
+
+\subsection{¿Porque son necesarias las pruebas?}
+
+\begin{list}{•}{}
+\item \textbf{Por Que?}: 
+\begin{list}{•}{}
+\item \textbf{Realizado por seres humanos}: Porque el desarrollo fue realizado por seres humanos, y los seres humanos se pueden cometer errores.
+\item \textbf{Presion en las entregas}: Porque a medida que aumenta la presion en las entregas por que no alcansa el tiempo se empieza a asumir que todo estara bien, y se se pueden cometer errores.
+\item \textbf{Medicion de la estabilidad}: Porque de las pruebas se puede medir la estabilidad o inestabilidad del software.
+\item \textbf{Hace lo que debe Hacer}: porque principalmente debemos demostrar que hace lo que fue diseñado para hacer .
+\item \textbf{Costos}: Porque es menos costoso encontrar fallas en la etapa de desarrollo que estando en productivo cuando el cliente esta operando el sotware.
+\end{list}
+\item \textbf{Que obtenemos?}:
+\begin{list}{•}{}
+\item \textbf{Adquirir conociminto}: Las pruebas nos permiten conocer el software y asi describir mejor el o los defectos y facilitar su correccion.
+\item \textbf{Confirmacion de la Funcionalidad}: Las pruebas nos permiten confirmar la funcionalidad en base a los requisitos espesificados por el cliente.
+\item \textbf{Generacion de informacion}: Las pruebas nos proporsionan la evidencia de posibles riesgos antes de que el software sea puesto en produccion.
+\item \textbf{Confianza}: Las pruebas nos brindan la confinza de que el software cumple con la funcionalidad esperada por el cliente.
+\end{list}
+\item \textbf{Cuando terminamos las pruebas?}: Para finalizar las pruebas debemo basaros en riesgos y prioridades lo cual depende de cada proyecto.
+\begin{list}{•}{}
+\item \textbf{Criterios de salida}: Un ejemplo de esto puede ser que despues de una determinada cantidad de pruebas no se evidencian mas defectos. Esto podria definirce como una condicion, entonces un conjunto de condiciones previamente definidas podria determinar un criterio de salida.
+\item \textbf{Basado en riesgos}: El nivel de riesgo determina el grado en el cual se a probado, de quien es la responsabilidad en caso de fallos, la odcurrencia de fallos y aspectos relatios a factores economicos.
+\item \textbf{Basado en plazo y Presupuesto}: Los recursos, tiempos y presupuesto son determinantes ya que de estas se asume que testear primero, que testeas mas y que no testear.
+\end{list}
+\end{list}
+
+\newpage
+ 
+\section{Proceso Fundamental de Testing}
+
+\lettrine{\textit{E}}{}l proceso de testing esta compuesto por varias etapas que veremos a continuacion,antes de empezar debemos resaltar que la etapa "Planificacion y control" tiene su propio nivel y es la primera, por esta debemos empzar, pero tambien se encarga de controlar y regular las demas etapas.   
+
+\begin{list}{•}{}
+\item \textbf{Planificacion y control}
+\item \textbf{Analisis y diseño}
+\item \textbf{Implementacion y ejecucion}
+\item \textbf{Evaluacion de criterios de salida y reportes}
+\item \textbf{Actividades de cierre}
+\end{list}
+
+\vspace*{\fill}
+\begin{center}
+\begin{pspicture}(12,12)
+\psset{cornersize=absolute,linearc=0.15}
+\psset{radius=1.3cm}
+\rput(3,6){\Circlenode{1}{Control}}
+\rput(10,10){\rnode{2}{\psframebox[framesep=7pt]{Planificacion}}}
+\rput(10,8){\rnode{3}{\psframebox[framesep=7pt]{Analisis y diseño}}}
+\rput(10,6){\rnode{4}{\psframebox[framesep=7pt]{Implementacion y ejecucion}}}
+\rput(10,4){\rnode{5}{\psframebox[framesep=7pt]{Evaluacion y reportes}}}
+\rput(10,2){\rnode{6}{\psframebox[framesep=7pt]{Actividades de cierre}}}
+
+
+\ncdiag[linewidth=1pt,angleA=0,angleB=180,linearc=2mm]{<->}{1}{2}
+\ncdiag[linewidth=1pt,angleA=0,angleB=180,linearc=2mm]{<->}{1}{3}
+\ncdiag[linewidth=1pt,angleA=0,angleB=180,linearc=2mm]{<->}{1}{4}
+\ncdiag[linewidth=1pt,angleA=0,angleB=180,linearc=2mm]{<->}{1}{5}
+\ncdiag[linewidth=1pt,angleA=0,angleB=180,linearc=2mm]{<->}{1}{6}
+\ncline[linewidth=1pt,angleA=-90,angleB=90,linearc=2mm]{<->}{2}{3}
+\ncline[linewidth=1pt,angleA=-90,angleB=90,linearc=2mm]{<->}{3}{4}
+\ncline[linewidth=1pt,angleA=-90,angleB=90,linearc=2mm]{<->}{4}{5}
+\ncline[linewidth=1pt,angleA=-90,angleB=90,linearc=2mm]{<->}{5}{6}
+\end{pspicture}
+\end{center}
+\begin{center}
+Proceso del testing
+\end{center}
+\vspace*{\fill}
+
+
+\subsection{Planificacion y control}
+
+\subsection{Analisis y diseño}
+
+\subsection{Implementacion y ejecucion}
+
+\subsection{Evaluacion de criterios de salida y reportes}
+
+\subsection{Actividades de cierre}
+
+
+
+
+
+
+\newpage
+
+\section{Modelos de Desarrollo de Software}
+
+
+\newpage
+
+\section{Diseño de Pruebas}
+
+
+\newpage
+
+\section{Técnicas Estáticas}
+
+
+\newpage
+
+\section{Técnicas Dinámicas}
+
+
+\newpage
+
+\section{Criterios para seleccionar el diseño apropiado de caso de prueba}
+
+
+\newpage
+
+\section{Creación de Casos de Prueba}
+
+
+\newpage
+
+\section{Resumen Curso}
+
+
+\newpage
+
+\section{Para rendir el ISTQB Foundation Level}
+
+
+\newpage
+
+\end{document}
